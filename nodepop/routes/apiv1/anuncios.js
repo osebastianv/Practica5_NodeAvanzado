@@ -26,7 +26,8 @@ router.get("/", async (req, res, next) => {
 
     if (typeof nombre !== "undefined") {
       // si me piden filtrar por nombre...
-      filter.nombre = nombre; // lo añado al filtro
+      //filter.nombre = nombre; // lo añado al filtro
+      filter.nombre = new RegExp("^" + nombre, "i");
     }
 
     if (typeof venta !== "undefined") {
@@ -35,8 +36,31 @@ router.get("/", async (req, res, next) => {
     }
 
     if (typeof precio !== "undefined") {
-      // si me piden filtrar por precio...
-      filter.precio = precio; // lo añado al filtro
+      // si me piden filtrar por precio
+      const isEqualParam = /^\d+$/.test(precio);
+      if (isEqualParam) {
+        filter.precio = precio; // lo añado al filtro
+        //console.log("isEqualParam: " + filter.precio);
+      } else {
+        const isLessParam = /^\-\d+$/.test(precio);
+        if (isLessParam) {
+          filter.precio = { $lt: precio * -1 };
+          //console.log("isLessParam: " + filter.precio);
+        } else {
+          const isGreaterParam = /^\d+\-$/.test(precio);
+          if (isGreaterParam) {
+            filter.precio = { $gt: precio.substring(0, precio.length - 1) };
+            //console.log("isGreaterParam: " + filter.precio);
+          } else {
+            const isRangeParam = /^\d+\-\d+$/.test(precio);
+            if (isRangeParam) {
+              const array = precio.split("-");
+              filter.precio = { $gte: array[0], $lte: array[1] };
+              //console.log("isRangeParam: " + filter.precio);
+            }
+          }
+        }
+      }
     }
 
     if (typeof tag !== "undefined") {
@@ -44,12 +68,8 @@ router.get("/", async (req, res, next) => {
       filter.tags = tag; // lo añado al filtro
     }
 
-    console.log("Inicio");
-
     // Si usamos await, la función en donde estoy debe tener async
     const docs = await Anuncio.listar(filter, skip, limit, sort, fields);
-
-    console.log("Fin");
 
     //throw new Error("Fallo tremendo");
     res.json({ success: true, result: docs }); // Lo metemos en una propiedad del objeto

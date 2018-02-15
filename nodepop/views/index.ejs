@@ -7,5 +7,14 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+
+      <h2>Listas</h2>
+      <% adsList.forEach(ad => { %>
+        <div>
+        <img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">
+        <p>
+          <%= ad.nombre + " " + ad.precio %>
+        </p>
+        <% })%>
   </body>
 </html>
