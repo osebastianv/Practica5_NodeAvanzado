@@ -7,6 +7,8 @@ var bodyParser = require("body-parser");
 
 // conectamos la base de datos
 const mongoose = require("./lib/connectMongoose");
+mongoose.connectDataBase(() => {});
+console.log("pasó");
 // cargamos los modelos para que mongoose los conozca
 const Anuncio = require("./models/Anuncio");
 

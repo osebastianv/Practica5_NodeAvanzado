@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "Bicicleta",
+    "venta": true,
+    "precio": 230.15,
+    "foto": "bici.jpg",
+    "tags": ["lifestyle", "motor"]
+  },
+  {
+    "nombre": "iPhone 3GS",
+    "venta": false,
+    "precio": 50.0,
+    "foto": "iphone.png",
+    "tags": ["lifestyle", "mobile"]
+  },
+  {
+    "nombre": "Ford Mustang",
+    "venta": true,
+    "precio": 50000.0,
+    "foto": "mustang.png",
+    "tags": ["lifestyle", "motor"]
+  },
+  {
+    "nombre": "Grapadora",
+    "venta": false,
+    "precio": 10.0,
+    "foto": "grapadora.png",
+    "tags": ["work"]
+  }
+]
