@@ -97,6 +97,7 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const data = req.body;
+    //console.log(req.body);
     const anuncio = new Anuncio(req.body);
     const anuncioGuardado = await anuncio.save();
     res.json({ success: true, result: anuncioGuardado });
@@ -105,6 +106,17 @@ router.post("/", async (req, res, next) => {
     return;
   }
 });
+
+/*router.options("/", async (req, res, next) => {
+  try {
+    const data = req.body;
+    console.log(req.body);
+    res.end();
+  } catch (err) {
+    next(err);
+    return;
+  }
+});*/
 
 // DELETE /
 // Elimina un anuncio

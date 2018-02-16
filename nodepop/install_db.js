@@ -11,19 +11,26 @@ const Anuncio = require("./models/Anuncio");
 
 const fs = require("fs");
 
-mongoose.connectDataBase(() => {
+/*mongoose.connectDataBase(() => {
   installDataBase();
-});
+});*/
+
+installDataBase();
 
 async function installDataBase() {
   try {
-    //1. Borramos datos tabla
+    //1. Abrimos bd
+    await mongoose.connectDataBase();
+
+    //2. Borramos datos tabla
     await removeAdvertisements();
     console.log("Datos borrados correctamente");
 
-    //2. Insertamos datos tabla desde fichero json
+    //3. Insertamos datos tabla desde fichero json
     await createAdvertisements();
     console.log("Datos insertados correctamente");
+
+    await mongoose.disconnectDataBase();
     process.exit(0);
   } catch (err) {
     console.log("Error al instalar la base de datos", err);
