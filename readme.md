@@ -20,14 +20,18 @@ La base de datos *nodepopDB* contiene una colección llamada anuncios. Cada anunc
 | node | 8.9.4 |
 | npm | 5.6.0 |
 
+| Base de datos | Versión |
+| ------ | ------ |
+| mongo | 3.6.2 |
+
 | Navegador | Versión |
 | ------ | ------ |
-| Chrome | 64.0.3282.167 (Build oficial) (64 bits) |
+| chrome | 64.0.3282.167 (Build oficial) (64 bits) |
 
 ##	2. Creación de la base de datos nodepopDB
 Como prerrequisito debe tener instalado *node.js* y el motor de *mongoDB*. 
 ```sh
-Ejemplo en Windows: lo instala en
+Ejemplo en Windows: lo instala en:
 C:\Program Files\MongoDB
 ```
 Crear una carpeta en el disco duro para guardar la base de datos. Se recomienda no crearla dentro de la carpeta de instalación de mongoDB por temas de permisos. 
@@ -72,7 +76,7 @@ show dbs
 ```
 Para comprobar si existe la base de datos *nodepopDB* y contiene datos, teclear:
 ```sh
-use nodepop
+use nodepopDB
 ```
 Y a continuación realizar una búsqueda de anuncios:
 ```sh
@@ -195,3 +199,9 @@ Será necesaria una aplicación externa que permita realizar peticiones HTTP, como
 ## 4. Visualizar lista de anuncios
 
 Para visualizar la lista de anuncios, teclear: http://localhost:3000
+
+## 5. Mostrar ayuda con Apidoc
+
+Al mismo nivel que la carpeta *nodepop*, existe la carpeta *doc*. Dentro de ella, abrir el archivo *index.html* para mostrar la ayuda de las funciones del api.
+
+La ayuda ha sido creada utilizando el paquete *apidoc*.

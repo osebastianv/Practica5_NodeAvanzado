@@ -1,0 +1,8 @@
+{
+  "name": "Ads API documentation",
+  "version": "1.0.0",
+  "description": "Ads API list manager",
+  "template": {
+        "forceLanguage": "en"
+  }
+}
