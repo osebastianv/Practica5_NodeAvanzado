@@ -4,5 +4,33 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+.element {
+  border: 1px solid black;
+  display: inline-block;
+}
+
+.element_size {
+  width: 12rem;
+  height: 12rem;
+}
+
+.photo {
+  width: 10rem;
+  height: 10rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  border: 1px solid black;
+}
+
+.name {
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+.price {
+  text-align: center;
+  font-size: 1.2rem;
 }

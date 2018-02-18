@@ -8,13 +8,19 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
 
-      <h2>Listas</h2>
+      <h2>Lista</h2>
       <% adsList.forEach(ad => { %>
-        <div>
-        <img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">
-        <p>
-          <%= ad.nombre + " " + ad.precio %>
+        <div class="element">
+        <div class="element_size">
+        <img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>" class ="photo">
+        </div>
+        <p class="name">
+          <%= ad.nombre%>
         </p>
+        <p class="price">
+          <%=ad.precio %> euros
+        </p>
+        </div>
         <% })%>
   </body>
 </html>
