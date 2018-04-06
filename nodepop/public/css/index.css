@@ -26,36 +26,90 @@
   font-size: 1.2rem;
 }*/
 
-#listaPop div {
-  margin: 20px;
+#main {
+  display: -webkit-flex; /* Safari */
+  display: flex;
 }
 
-#listaPop ul {
-  list-style-type: none;
-  width: 300px;
+#toolbar {
+  width: 10px;
+  height: 100vh-50px;
+  background: beige;
+  flex: 1;
 }
 
-#listaPop h3 {
+#toolbar div {
+  margin: 10px;
+}
+
+#toolbar .toolbar-user {
+  margin-top: 20px;
+}
+
+#toolbar .toolbar-ad {
+  margin-top: 40px;
+}
+
+/*#toolbar p {
+  margin: 10px 10px 10px 50px;
+}*/
+
+/*#toolbar .toolbar-element {
+  border-radius: 5px;
+  border: 1px solid black;
+  margin-top: 15px;
+}*/
+
+/*#toolbar #logout {
+  text-align: right;
+}*/
+
+#product {
+  padding-left: 15px;
+  flex: 4;
+  background: green;
+  display: inline-block;
+}
+
+#product #product-header {
+  margin-top: 15px;
+}
+
+#product #product-list {
+  width: 100vw;
+  background: red;
+  width: 500px;
+}
+
+#product h3 {
   font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
 }
 
-#listaPop li img {
+#product #product-list img {
   float: left;
   margin: 0 15px 0 0;
   width: 100px;
   height: 100px;
 }
 
-#listaPop li p {
+#product #product-list p {
   font: 200 12px/1.5 Georgia, Times New Roman, serif;
 }
 
-#listaPop li {
+#product #product-list div {
+  margin-bottom: 5px;
   padding: 10px;
   overflow: auto;
+  border-radius: 5px;
+  border: 1px solid black;
+  background: blue;
 }
 
-#listaPop li:hover {
+#product #product-list p {
+  margin: 5px;
+}
+
+#product #product-list div:hover {
   background: #eee;
   cursor: pointer;
 }

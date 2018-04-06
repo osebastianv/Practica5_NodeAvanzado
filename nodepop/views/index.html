@@ -1,57 +1,51 @@
 <% include header.html %>
 
-  <h1>
-    <%= title %>
-  </h1>
-  <p>Welcome to
-    <%= title %>
-  </p>
+  <header class="masthead"></header>
+  <div class="container"></div>
+  </div>
+  </header>
 
-  <h2>Lista</h2>
-  <!--<% adsList.forEach(ad => { %>
-    <div class="element">
-      <div class="element_size">
-        <img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>" class="photo">
-      </div>
-      <p class="name">
-        <%= ad.nombre%>
-      </p>
-      <p class="price">
-        <%=ad.precio %> euros
-      </p>
-    </div>
-    <% })%>-->
+  <div class="container">
+    <div id="main">
+      <% include toolbar.html %>
 
-  <div id="listaPop">
-    <ul>
-      <% adsList.forEach(ad => { %>
-        <li>
-          <img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">
-          <h3>
-            <%= ad.nombre%>
-          </h3>
+        <div id="product">
+          <div id="product-header">
+            <h2>Lista</h2>
+          </div>
 
-          <p>
-            <%=ad.precio %> euros</p>
-
-          <% if(ad.venta === true){ %>
-            <p>Venta</p>
-            <% } else{ %>
-              <p>Compra</p>
-              <% } %>
+          <div id="product-list">
+            <% adsList.forEach(ad => { %>
+              <div>
+                <img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">
+                <h3>
+                  <%= ad.nombre%>
+                </h3>
 
                 <p>
-                  <% for(var i=0; i<ad.tags.length; i++) { %>
-                    <%=ad.tags[i]%>
-                      <% if(i < ad.tags.length-1) { %>,
-                        <% } %>
-                          <% }%>
-                </p>
+                  <%=ad.precio %> euros</p>
 
-        </li>
-        <% })%>
+                <% if(ad.venta === true){ %>
+                  <p>Venta</p>
+                  <% } else{ %>
+                    <p>Compra</p>
+                    <% } %>
 
-    </ul>
+                      <p>
+                        <% for(var i=0; i<ad.tags.length; i++) { %>
+                          <%=ad.tags[i]%>
+                            <% if(i < ad.tags.length-1) { %>,
+                              <% } %>
+                                <% }%>
+                      </p>
+
+              </div>
+              <% })%>
+
+
+          </div>
+        </div>
+    </div>
   </div>
 
   <% include footer.html %>

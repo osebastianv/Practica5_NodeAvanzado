@@ -1,0 +1,53 @@
+<% include header.html %>
+
+  <div class="container">
+    <div id="main">
+
+      <% include toolbar.html %>
+
+        <div id="product">
+          <div id="product-header">
+            <h2>Nuevo Producto</h2>
+          </div>
+
+          <form novalidate action="/new" method="POST">
+            <div class="form-row">
+              <label for="product-name">Nombre</label>
+              <input type="text" name="name" id="product-name" placeholder="Nombre" required>
+            </div>
+
+            <div class="form-row">
+              <label for="product-price">Precio</label>
+              <input type="number" name="price" id="product-price" min="1" max="50000" required>
+            </div>
+
+            <div class="form-row">
+              <label>Venta</label>
+              <br>
+              <input type="radio" class="radio" id="product-type-1" name="product-type" value="LinkedIn" required>
+              <label for="<product-type-1">Si</label>
+
+              <input type="radio" class="radio" id="</div>-2" name="product-type" value="Twitter" required>
+              <label for="<product-type-2">No</label>
+            </div>
+
+            <div class="form-row">
+              <p>Tags</p>
+              <div>
+                <input type="checkbox" name="tag1" value="work">Work
+                <input type="checkbox" name="tag2" value="lifestyle">Lifestyle
+                <input type="checkbox" name="tag2" value="motor">Motor
+                <input type="checkbox" name="tag2" value="mobile">Mobile
+              </div>
+            </div>
+
+            <div class="form-row">
+              <button type="submit" id="send-button">Crear</button>
+            </div>
+          </form>
+
+        </div>
+    </div>
+  </div>
+
+  <% include footer.html %>

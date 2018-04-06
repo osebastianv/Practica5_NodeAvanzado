@@ -14,6 +14,7 @@ mongoose.connectDataBase();
 const Anuncio = require("./models/Anuncio");
 
 var index = require("./routes/index");
+var newAd = require("./routes/newAd");
 var users = require("./routes/users");
 
 var app = express();
@@ -57,10 +58,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use("/", index);
-app.use("/users", users);
-
 app.use("/apiv1/anuncios", require("./routes/apiv1/anuncios"));
+
+app.use("/", index);
+app.use("/newAd", newAd);
+app.use("/users", users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
