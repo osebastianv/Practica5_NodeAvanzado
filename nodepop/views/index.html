@@ -1,0 +1,57 @@
+<% include header.html %>
+
+  <h1>
+    <%= title %>
+  </h1>
+  <p>Welcome to
+    <%= title %>
+  </p>
+
+  <h2>Lista</h2>
+  <!--<% adsList.forEach(ad => { %>
+    <div class="element">
+      <div class="element_size">
+        <img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>" class="photo">
+      </div>
+      <p class="name">
+        <%= ad.nombre%>
+      </p>
+      <p class="price">
+        <%=ad.precio %> euros
+      </p>
+    </div>
+    <% })%>-->
+
+  <div id="listaPop">
+    <ul>
+      <% adsList.forEach(ad => { %>
+        <li>
+          <img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">
+          <h3>
+            <%= ad.nombre%>
+          </h3>
+
+          <p>
+            <%=ad.precio %> euros</p>
+
+          <% if(ad.venta === true){ %>
+            <p>Venta</p>
+            <% } else{ %>
+              <p>Compra</p>
+              <% } %>
+
+                <p>
+                  <% for(var i=0; i<ad.tags.length; i++) { %>
+                    <%=ad.tags[i]%>
+                      <% if(i < ad.tags.length-1) { %>,
+                        <% } %>
+                          <% }%>
+                </p>
+
+        </li>
+        <% })%>
+
+    </ul>
+  </div>
+
+  <% include footer.html %>

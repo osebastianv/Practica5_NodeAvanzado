@@ -1,0 +1,61 @@
+/*.element {
+  border: 1px solid black;
+  display: inline-block;
+}
+
+.element_size {
+  width: 12rem;
+  height: 12rem;
+}
+
+.photo {
+  width: 10rem;
+  height: 10rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  border: 1px solid black;
+}
+
+.name {
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+.price {
+  text-align: center;
+  font-size: 1.2rem;
+}*/
+
+#listaPop div {
+  margin: 20px;
+}
+
+#listaPop ul {
+  list-style-type: none;
+  width: 300px;
+}
+
+#listaPop h3 {
+  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+}
+
+#listaPop li img {
+  float: left;
+  margin: 0 15px 0 0;
+  width: 100px;
+  height: 100px;
+}
+
+#listaPop li p {
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+}
+
+#listaPop li {
+  padding: 10px;
+  overflow: auto;
+}
+
+#listaPop li:hover {
+  background: #eee;
+  cursor: pointer;
+}

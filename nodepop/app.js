@@ -18,9 +18,11 @@ var users = require("./routes/users");
 
 var app = express();
 
-// view engine setup
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+app.set("view engine", "html"); // decimos a express que use extension html
+app.engine("html", require("ejs").__express); // le decimos como manejar vistas html
+
+app.locals.title = "NodePOP";
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
