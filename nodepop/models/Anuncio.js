@@ -13,6 +13,7 @@ const anuncioSchema = mongoose.Schema({
   //precargado. Se utiliza para separar en diferentes carpetas las imágenes:
   //True. Anuncios cargados por defecto en installDB. No contienen thumbnail. public/images/anuncios
   //False. Nuevos anuncios creados dinámicamente. Microservicio genera thumbnail. public/images/uploads
+  //Así, con .gitignore solo se suben las imágenes predefinidas
   precargado: Boolean
 });
 
@@ -32,6 +33,11 @@ anuncioSchema.statics.listar = function(
   query.sort(sort);
   query.select(fields);
   return query.exec(callback);
+};
+
+// creamos un método estático (del modelo)
+anuncioSchema.statics.insertar = function(anuncio, callback) {
+  return Anuncio.insertMany(anuncio);
 };
 
 // creamos el modelo

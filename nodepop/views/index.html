@@ -22,9 +22,18 @@
           <div id="ad-list">
             <% adsList.forEach(ad => { %>
               <div>
-                <img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">
+                <img src="<%= ad.ruta %>" alt="Foto de <%= ad.nombre%>">
+                <!--<img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">-->
+                <!--<% if(ad.precargado === true){ %>
+                  <img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">
+                  <% } else{
+                      if(ad.thumbnail === ""){ %>
+                    <img src="/images/uploads/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">
+                    <% } else{ %>
+                      <img src="/images/uploads/<%= ad.thumbnail %>" alt="Foto de <%= ad.nombre%>">
+                      <% }} %>-->
                 <h3>
-                  <%= ad.nombre%>
+                  <%= ad.nombre + "-" + ad.precargado + "-" + ad.thumbnail%>
                 </h3>
 
                 <p>

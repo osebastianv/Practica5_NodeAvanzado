@@ -6,11 +6,11 @@ console.log(form);
 //Solo se usa en newAd.html
 if (typeof form != "undefined") {
   console.log("SI");
-  const nameInput = document.getElementById("ad-name");
-  const priceInput = document.getElementById("ad-price");
+  const nameInput = document.getElementById("nombre");
+  const priceInput = document.getElementById("precio");
 
-  const typeRadios = document.getElementsByName("ad-type");
-  const tagChecks = document.getElementsByName("ad-tag");
+  const typeRadios = document.getElementsByName("venta");
+  const tagChecks = document.getElementsByName("tags");
 
   const imageInput = document.getElementsByName("imagen");
   console.log("imageInput", imageInput);
@@ -72,7 +72,9 @@ if (typeof form != "undefined") {
 
     // Validamos nombre
     if (priceInput.checkValidity() === false) {
-      alert("Escriba un precio de artículo, por favor");
+      alert(
+        "Escriba un precio de artículo, por favor. Recuerde que debe estar entre 1 y 50.000 euros"
+      );
       priceInput.focus();
       //event.preventDefault();
       return false;

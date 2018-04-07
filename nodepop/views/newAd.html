@@ -13,12 +13,12 @@
           <form novalidate name="ad-new" method="POST" enctype="multipart/form-data">
             <div class="ad-row">
               <label class="ad-width" for="ad-name">Nombre:</label>
-              <input type="text" name="ad-name" id="ad-name" required>
+              <input type="text" name="nombre" id="nombre" maxlength="20" required>
             </div>
 
             <div class="ad-row">
               <label class="ad-width" for="ad-price">Precio:</label>
-              <input type="number" name="ad-price" id="ad-price" min="1" max="50000" required>
+              <input type="number" name="precio" id="precio" min="1" max="50000" maxlength="5" required>
             </div>
 
             <div class="ad-row">
@@ -26,12 +26,12 @@
                 <div class="ad-one-row">
                   <div class="ad-subrow ad-width">Venta:</div>
                   <div class="ad-subrow">
-                    <input type="radio" class="radio" id="ad-type-1" name="ad-type" value="true" required>
+                    <input type="radio" class="radio" id="venta-1" name="venta" value="true" required>
                     <label for="<ad-type-1">Si</label>
                   </div>
 
                   <div class="ad-subrow">
-                    <input type="radio" class="radio" id="ad-type-2" name="ad-type" value="false" required>
+                    <input type="radio" class="radio" id="venta-2" name="venta" value="false" required>
                     <label for="<ad-type-2">No</label>
                   </div>
                 </div>
@@ -43,16 +43,16 @@
                 <div class="ad-subrow ad-width">Tags:</div>
 
                 <div class="ad-subrow">
-                  <input type="checkbox" id="ad-tag1" name="ad-tag" value="work">Work
+                  <input type="checkbox" id="tag1" name="tags" value="work">Work
                 </div>
                 <div class="ad-subrow">
-                  <input type="checkbox" id="ad-tag2" name="ad-tag" value="lifestyle">Lifestyle
+                  <input type="checkbox" id="tag2" name="tags" value="lifestyle">Lifestyle
                 </div>
                 <div class="ad-subrow">
-                  <input type="checkbox" id="ad-tag3" name="ad-tag" value="motor">Motor
+                  <input type="checkbox" id="tag3" name="tags" value="motor">Motor
                 </div>
                 <div class="ad-subrow">
-                  <input type="checkbox" id="ad-tag4" name="ad-tag" value="mobile">Mobile
+                  <input type="checkbox" id="tag4" name="tags" value="mobile">Mobile
                 </div>
               </div>
             </div>

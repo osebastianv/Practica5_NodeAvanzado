@@ -19,10 +19,38 @@ router.get("/", async function(req, res, next) {
 
 router.post("/", upload.single("imagen"), async function(req, res, next) {
   try {
-    console.log("upload:", req.file);
-    console.log("body:", req.body);
-    //res.locals.adsList = [];
-    //console.log("algos", res.locals.adsList.length);
+    //console.log("upload:", req.file);
+    //console.log("body:", req.body);
+
+    if (checkAd(req.body, req.file) === false) {
+      const err = new Error("Falta información en la petición");
+      err.status = 400;
+      next(err);
+      return;
+    }
+
+    //console.log("1", req.body.tags);
+
+    let arrayTags = [];
+    if (Array.isArray(req.body.tags) === true) {
+      arrayTags = req.body.tags;
+    } else {
+      arrayTags.push(req.body.tags);
+    }
+    //console.log("2", arrayTags);
+
+    const anuncio = {
+      nombre: req.body.nombre,
+      venta: req.body.venta,
+      precio: req.body.precio,
+      foto: req.file.filename,
+      thumbnail: "",
+      tags: arrayTags,
+      precargado: false
+    };
+    //console.log("3", anuncio);
+
+    await Anuncio.insertar(anuncio);
     res.redirect("/");
   } catch (err) {
     console.log(err);
@@ -30,5 +58,40 @@ router.post("/", upload.single("imagen"), async function(req, res, next) {
     return;
   }
 });
+
+function checkAd(body, file) {
+  const nombre = body.nombre;
+  if (nombre === undefined) {
+    return false;
+  }
+  //console.log("nombre", nombre);
+
+  const precio = body.precio;
+  if (precio === undefined) {
+    return false;
+  }
+  //console.log("precio", precio);
+
+  const venta = body.venta;
+  if (venta === undefined) {
+    return false;
+  }
+  //console.log("venta", venta);
+
+  const tags = body.tags;
+  if (tags === undefined) {
+    return false;
+  }
+  //console.log("tags", tags);
+
+  const foto = file;
+  //console.log("foto", foto);
+  if (foto === undefined) {
+    return false;
+  }
+  //console.log("foto", foto);
+
+  return true;
+}
 
 module.exports = router;

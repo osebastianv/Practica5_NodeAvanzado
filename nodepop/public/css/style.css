@@ -23,35 +23,35 @@
 }
 
 #ad {
-  background: green;
+  /*background: green;*/
   display: inline-block;
   padding: 15px;
   flex: 4;
 }
 
 #ad #ad-header {
-  background: blue;
+  /*background: blue;*/
 }
 
 #ad #ad-list {
   width: 100vw;
-  background: red;
+  /*background: red;*/
   width: 500px;
 }
 
 #ad .ad-row {
-  margin: 5px 0;
-  background: red;
+  margin: 15px 0;
+  /*background: red;*/
 }
 
 #ad .ad-one-row {
-  background: purple;
+  /*background: purple;*/
 }
 
 #ad .ad-subrow {
   padding: 0 15px 0 0;
   display: inline-block;
-  background: yellow;
+  /*background: yellow;*/
 }
 
 #ad .ad-width {
@@ -80,7 +80,7 @@
   overflow: auto;
   border-radius: 5px;
   border: 1px solid black;
-  background: blue;
+  /*background: blue;*/
 }
 
 #ad #ad-list p {
