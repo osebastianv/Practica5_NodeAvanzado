@@ -5,14 +5,20 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+
+const jwtAuth = require("./lib/jwtAuth");
+
 // conectamos la base de datos
 const conn = require("./lib/connectMongoose");
 // cargamos los modelos para que mongoose los conozca
 const Anuncio = require("./models/Anuncio");
+//const Usuario = require("./models/Usuario");
 
 var index = require("./routes/index");
 var newAd = require("./routes/newAd");
-var users = require("./routes/users");
+//var users = require("./routes/users");
 
 var app = express();
 
@@ -29,6 +35,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+const loginController = require("./routes/loginController");
+
+// middleware de control de sesiones
+app.use(
+  session({
+    name: "nodeapi-session2",
+    secret: "palabrasecretaindescifrable",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 2 * 24 * 60 * 60 * 1000, httpOnly: true }, // dos dias de inactividad
+    store: new MongoStore({
+      // como conectarse a mi base de datos
+      url: "mongodb://localhost/cursonode" // fix issue https://github.com/jdesboeufs/connect-mongo/issues/277
+      // mongooseConnection: conn
+    })
+  })
+);
 
 // Add headers to connect external website
 app.use(function(req, res, next) {
@@ -55,11 +79,34 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use("/apiv1/anuncios", require("./routes/apiv1/anuncios"));
+app.get("/login", loginController.index);
+app.post("/login", loginController.postLoginJWT);
+app.get("/logout", loginController.logout);
 
-app.use("/", index);
-app.use("/newAd", newAd);
-app.use("/users", users);
+app.use("/apiv1/anuncios", jwtAuth(), require("./routes/apiv1/anuncios"));
+
+/*app.use(async (req, res, next) => {
+  try {
+    // si el usuario está logado, cargamos en req.user el objeto de usuario desde la base de datos
+    // para que los siguientes middlewares lo puedan usar
+    //req.user = req.session.authUser ? await Usuario.findById(req.session.authUser._id) : null;
+
+    //console.log("algo");
+    console.log("0 -> ", req.session.apiUserId);
+    req.user = req.session.apiUserId
+      ? await Usuario.findById(req.session.apiUserId)
+      : null;
+    console.log("1 -> ", req.user);
+    next();
+  } catch (err) {
+    next(err);
+    return;
+  }
+});*/
+
+app.use("/", jwtAuth(), index);
+app.use("/newAd", jwtAuth(), newAd);
+//app.use("/users", users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

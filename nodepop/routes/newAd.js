@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 const Anuncio = require("../models/Anuncio");
+const Usuario = require("../models/Usuario");
 
 // cargamos objeto de upload
 const upload = require("../lib/uploadConfig");
@@ -9,6 +10,16 @@ const upload = require("../lib/uploadConfig");
 /* GET home page. */
 router.get("/", async function(req, res, next) {
   try {
+    //User
+    try {
+      req.user = await Usuario.findById(req.session.apiUserId);
+      res.locals.userEmail = req.user.email;
+    } catch (err) {
+      res.locals.userEmail = "";
+    }
+
+    //res.locals.userEmail = req.user ? req.user.email : "";
+
     res.render("newAd");
   } catch (err) {
     console.log(err);

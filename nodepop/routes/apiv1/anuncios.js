@@ -53,6 +53,8 @@ const Anuncio = require("../../models/Anuncio");
 router.get("/", async (req, res, next) => {
   //GET. Obtener anuncios por filtro
   try {
+    console.log(req.query);
+
     // recogemos parámetros de entrada
     const nombre = req.query.nombre;
     const venta = req.query.venta;

@@ -29,9 +29,9 @@
   flex: 4;
 }
 
-#ad #ad-header {
-  /*background: blue;*/
-}
+/*#ad #ad-header {
+  background: blue;
+}*/
 
 #ad #ad-list {
   width: 100vw;
@@ -44,9 +44,9 @@
   /*background: red;*/
 }
 
-#ad .ad-one-row {
-  /*background: purple;*/
-}
+/*#ad .ad-one-row {
+  background: purple;
+}*/
 
 #ad .ad-subrow {
   padding: 0 15px 0 0;
@@ -90,4 +90,14 @@
 #ad #ad-list div:hover {
   background: #eee;
   cursor: pointer;
+}
+
+body {
+  background: white;
+}
+
+.container-login {
+  background: beige;
+  padding: 0 0 15px 0;
+  border-radius: 5px;
 }

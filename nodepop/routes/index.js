@@ -2,10 +2,21 @@ var express = require("express");
 var router = express.Router();
 
 const Anuncio = require("../models/Anuncio");
+const Usuario = require("../models/Usuario");
 
 /* GET home page. */
 router.get("/", async function(req, res, next) {
   try {
+    //User
+    try {
+      req.user = await Usuario.findById(req.session.apiUserId);
+      res.locals.userEmail = req.user.email;
+    } catch (err) {
+      res.locals.userEmail = "";
+    }
+
+    //res.locals.userEmail = req.user ? req.user.email : "";
+
     //res.locals.title = "Anuncios";
     const docs = await Anuncio.listar(null, 0, 10); //Solo muestra los 10 primeros elementos
 
