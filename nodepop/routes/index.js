@@ -9,6 +9,7 @@ router.get("/", async function(req, res, next) {
     //res.locals.title = "Anuncios";
     const docs = await Anuncio.listar(null, 0, 10); //Solo muestra los 10 primeros elementos
     res.locals.adsList = docs;
+    console.log("res.locals.adsList", res.locals.adsList.length);
     res.render("index");
   } catch (err) {
     console.log(err);

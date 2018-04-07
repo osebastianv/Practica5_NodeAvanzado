@@ -9,12 +9,17 @@
     <div id="main">
       <% include toolbar.html %>
 
-        <div id="product">
-          <div id="product-header">
-            <h2>Lista</h2>
+        <div id="ad">
+          <div id="ad-header">
+            <% if (adsList.length === 0) { %>
+              <h2>Lista Vacía</h2>
+              <%} else {%>
+                <h2>Lista</h2>
+                <%}%>
           </div>
 
-          <div id="product-list">
+
+          <div id="ad-list">
             <% adsList.forEach(ad => { %>
               <div>
                 <img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">

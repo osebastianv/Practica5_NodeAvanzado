@@ -5,44 +5,65 @@
 
       <% include toolbar.html %>
 
-        <div id="product">
-          <div id="product-header">
-            <h2>Nuevo Producto</h2>
+        <div id="ad">
+          <div id="ad-header">
+            <h2>Nuevo Anuncio</h2>
           </div>
 
-          <form novalidate action="/new" method="POST">
-            <div class="form-row">
-              <label for="product-name">Nombre</label>
-              <input type="text" name="name" id="product-name" placeholder="Nombre" required>
+          <form novalidate name="ad-new" method="POST" enctype="multipart/form-data">
+            <div class="ad-row">
+              <label class="ad-width" for="ad-name">Nombre:</label>
+              <input type="text" name="ad-name" id="ad-name" required>
             </div>
 
-            <div class="form-row">
-              <label for="product-price">Precio</label>
-              <input type="number" name="price" id="product-price" min="1" max="50000" required>
+            <div class="ad-row">
+              <label class="ad-width" for="ad-price">Precio:</label>
+              <input type="number" name="ad-price" id="ad-price" min="1" max="50000" required>
             </div>
 
-            <div class="form-row">
-              <label>Venta</label>
-              <br>
-              <input type="radio" class="radio" id="product-type-1" name="product-type" value="LinkedIn" required>
-              <label for="<product-type-1">Si</label>
+            <div class="ad-row">
+              <div class="ad-one-row">
+                <div class="ad-one-row">
+                  <div class="ad-subrow ad-width">Venta:</div>
+                  <div class="ad-subrow">
+                    <input type="radio" class="radio" id="ad-type-1" name="ad-type" value="true" required>
+                    <label for="<ad-type-1">Si</label>
+                  </div>
 
-              <input type="radio" class="radio" id="</div>-2" name="product-type" value="Twitter" required>
-              <label for="<product-type-2">No</label>
-            </div>
-
-            <div class="form-row">
-              <p>Tags</p>
-              <div>
-                <input type="checkbox" name="tag1" value="work">Work
-                <input type="checkbox" name="tag2" value="lifestyle">Lifestyle
-                <input type="checkbox" name="tag2" value="motor">Motor
-                <input type="checkbox" name="tag2" value="mobile">Mobile
+                  <div class="ad-subrow">
+                    <input type="radio" class="radio" id="ad-type-2" name="ad-type" value="false" required>
+                    <label for="<ad-type-2">No</label>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="form-row">
-              <button type="submit" id="send-button">Crear</button>
+            <div class="ad-row">
+              <div class="ad-one-row">
+                <div class="ad-subrow ad-width">Tags:</div>
+
+                <div class="ad-subrow">
+                  <input type="checkbox" id="ad-tag1" name="ad-tag" value="work">Work
+                </div>
+                <div class="ad-subrow">
+                  <input type="checkbox" id="ad-tag2" name="ad-tag" value="lifestyle">Lifestyle
+                </div>
+                <div class="ad-subrow">
+                  <input type="checkbox" id="ad-tag3" name="ad-tag" value="motor">Motor
+                </div>
+                <div class="ad-subrow">
+                  <input type="checkbox" id="ad-tag4" name="ad-tag" value="mobile">Mobile
+                </div>
+              </div>
+            </div>
+
+            <div class="ad-row">
+              <div class="ad-subrow ad-width">Foto:</div>
+              <input type="file" name="imagen">
+            </div>
+
+            <div class="ad-row">
+              <button type="submit" id="send-button">Crear Anuncio</button>
             </div>
           </form>
 
