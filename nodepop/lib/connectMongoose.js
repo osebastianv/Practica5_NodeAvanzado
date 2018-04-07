@@ -1,29 +1,17 @@
 "use strict";
 
 const mongoose = require("mongoose");
+const conn = mongoose.connection;
 
-function connectDataBase() {
-  return new Promise((resolve, reject) => {
-    const conn = mongoose.connection;
+conn.on("error", err => {
+  console.log("Error de conexión", err);
+  process.exit(1);
+});
 
-    conn.on("error", err => {
-      reject(new error("Error de conexión", err));
-    });
+conn.once("open", () => {
+  console.log("Conectado a MongoDB en", mongoose.connection.name);
+});
 
-    conn.once("open", () => {
-      console.log("Conectado a MongoDB en", mongoose.connection.name);
-      resolve();
-    });
+mongoose.connect("mongodb://localhost/nodepopDB");
 
-    mongoose.connect("mongodb://localhost/nodepopDB");
-  });
-}
-
-function disconnectDataBase() {
-  return mongoose.connection.close();
-}
-
-module.exports = {
-  connectDataBase: connectDataBase,
-  disconnectDataBase: disconnectDataBase
-};
+module.exports = conn;

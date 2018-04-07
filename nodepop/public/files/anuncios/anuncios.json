@@ -4,27 +4,35 @@
     "venta": true,
     "precio": 230.15,
     "foto": "bici.jpg",
-    "tags": ["lifestyle", "motor"]
+    "thumbnail": "",
+    "tags": ["lifestyle", "motor"],
+    "precargado": true
   },
   {
     "nombre": "iPhone 3GS",
     "venta": false,
     "precio": 50.0,
     "foto": "iphone.png",
-    "tags": ["lifestyle", "mobile"]
+    "thumbnail": "",
+    "tags": ["lifestyle", "mobile"],
+    "precargado": true
   },
   {
     "nombre": "Ford Mustang",
     "venta": true,
     "precio": 50000.0,
     "foto": "mustang.png",
-    "tags": ["lifestyle", "motor"]
+    "thumbnail": "",
+    "tags": ["lifestyle", "motor"],
+    "precargado": true
   },
   {
     "nombre": "Grapadora",
     "venta": false,
     "precio": 10.0,
     "foto": "grapadora.png",
-    "tags": ["work"]
+    "thumbnail": "",
+    "tags": ["work"],
+    "precargado": true
   }
 ]

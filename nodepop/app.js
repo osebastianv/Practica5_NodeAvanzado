@@ -6,10 +6,7 @@ var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 
 // conectamos la base de datos
-const mongoose = require("./lib/connectMongoose");
-mongoose.connectDataBase();
-//mongoose.connectDataBase(() => {});
-
+const conn = require("./lib/connectMongoose");
 // cargamos los modelos para que mongoose los conozca
 const Anuncio = require("./models/Anuncio");
 

@@ -1,3 +1,6 @@
+// Este archivo junto con la carpeta public/vendor forman parte de una plantilla de bootstrap llamada new-age.
+// https://startbootstrap.com/template-overviews/new-age/
+
 (function($) {
   "use strict"; // Start of use strict
 

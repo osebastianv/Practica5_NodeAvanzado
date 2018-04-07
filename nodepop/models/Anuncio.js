@@ -8,7 +8,12 @@ const anuncioSchema = mongoose.Schema({
   venta: Boolean,
   precio: Number,
   foto: String,
-  tags: [String]
+  thumbnail: String,
+  tags: [String],
+  //precargado. Se utiliza para separar en diferentes carpetas las imágenes:
+  //True. Anuncios cargados por defecto en installDB. No contienen thumbnail. public/images/anuncios
+  //False. Nuevos anuncios creados dinámicamente. Microservicio genera thumbnail. public/images/uploads
+  precargado: Boolean
 });
 
 // creamos un método estático (del modelo)
