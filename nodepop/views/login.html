@@ -5,26 +5,31 @@
       <div class="row">
         <div class="col-md-8 mx-auto">
 
-          <h2 class="section-heading">Login</h2>
+          <h2 class="section-heading">
+            <%= __('Iniciar sesión') %>
+          </h2>
 
-          <p>Please login to access</p>
+          <p>
+            <%= __('Por favor inicie sesión para acceder') %>
+          </p>
 
           <form method="POST">
             <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email"
-                value="<%= email %>">
-              <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+              <label for="exampleInputEmail1">
+                <%= __('Dirección de correo electrónico') %>
+              </label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="<%= __('Ingrese correo electrónico') %>"
+                name="email" value="<%= email %>">
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+              <label for="exampleInputPassword1">
+                <%= __('Contraseña') %>
+              </label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="<%= __('Contraseña') %>" name="password">
             </div>
-            <!--<div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-          </div>-->
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">
+              <%= __('Enviar') %>
+            </button>
             <div class="error">
               <%= error %>
             </div>

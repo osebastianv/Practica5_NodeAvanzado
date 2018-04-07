@@ -1,5 +1,6 @@
 "use strict";
 
+const i18n = require("../lib/i18nConfigure")();
 const Usuario = require("../models/Usuario");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -10,14 +11,11 @@ class LoginController {
     res.locals.email =
       process.env.NODE_ENV === "development" ? "user@example.com" : "";
     res.locals.error = "";
-    //console.log("T3");
     res.render("login");
   }
 
   // POST /loginJWT
   async postLoginJWT(req, res, next) {
-    //console.log("J1");
-
     const email = req.body.email;
     const password = req.body.password;
 
@@ -28,17 +26,10 @@ class LoginController {
 
     // Comprobar usuario encontrado y verificar la clave del usuario
     if (!user || !await bcrypt.compare(password, user.password)) {
-      res.locals.error = "Credenciales incorrectas";
+      res.locals.error = res.__("Credenciales incorrectas");
       res.render("login");
-      //console.log("J2");
       return;
     }
-
-    // Comprobar usuario encontrado y verificar la clave del usuario
-    /*if (!user || !await bcrypt.compare(password, user.password)) {
-      res.json({ success: false, error: "Wrong credentials" });
-      return;
-    }*/
 
     console.log("process.env.JWT_SECRET", process.env.JWT_SECRET);
 
@@ -54,13 +45,9 @@ class LoginController {
           next(err);
           return;
         }
-        //res.cookie('nodeapi-jwt', token, { maxAge: 60 * 1000, httpOnly: true })
-        //res.json({ success: true, token: token});
 
         // sesión está autenticada
-        //req.session.authUser = { _id: user._id };
         req.session.authToken = token;
-        //console.log("2->", token);
 
         // usuario encontrado y validado
         res.redirect("/");

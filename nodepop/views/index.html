@@ -11,12 +11,20 @@
 
         <div id="ad">
           <div id="ad-header">
-            <% if (adsList.length === 0) { %>
-              <h2>Lista Vacía</h2>
+            <h2>
+              <%= titleList %>
+            </h2>
+
+            <!--<% if (adsList.length === 0) { %>
+              <h2>
+                <%= __('Lista Vacía') %>
+              </h2>
               <%} else {%>
-                <h2>Lista con
-                  <%= adsList.length %> anuncios</h2>
-                <%}%>
+                <h2>
+                  <%= __('Lista de anuncios:') %>
+                    <%= adsList.length %>
+                </h2>
+                <%}%>-->
           </div>
 
 
@@ -24,15 +32,6 @@
             <% adsList.forEach(ad => { %>
               <div>
                 <img src="<%= ad.ruta %>" alt="Foto de <%= ad.nombre%>">
-                <!--<img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">-->
-                <!--<% if(ad.precargado === true){ %>
-                  <img src="/images/anuncios/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">
-                  <% } else{
-                      if(ad.thumbnail === ""){ %>
-                    <img src="/images/uploads/<%= ad.foto %>" alt="Foto de <%= ad.nombre%>">
-                    <% } else{ %>
-                      <img src="/images/uploads/<%= ad.thumbnail %>" alt="Foto de <%= ad.nombre%>">
-                      <% }} %>-->
                 <h3>
                   <%= ad.nombre + "-" + ad.precargado + "-" + ad.thumbnail%>
                 </h3>

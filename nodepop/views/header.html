@@ -13,7 +13,7 @@
   </title>
 
   <link href="css/new-age.css" rel="stylesheet">
-  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 
 </head>
@@ -34,14 +34,33 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/">Home</a>
+            <a class="nav-link js-scroll-trigger" href="/">
+              <%= __('Inicio') %>
+            </a>
           </li>
-          <li class="nav-item">
+
+          <% getLocales().forEach( lang => { %>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/lang/<%= lang %>">
+                <% if (lang === 'en') { %>
+                  english
+                  <% } else {
+                    if (lang === 'es') { %>
+                    español
+                    <% } else { %>
+                      <%= lang %>
+                        <% }} %>
+                          <!--<%= lang %>-->
+              </a>
+            </li>
+            <% }) %>
+
+              <!--<li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="/about">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
-          </li>
+          </li>-->
         </ul>
       </div>
     </div>

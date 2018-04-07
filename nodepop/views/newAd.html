@@ -7,32 +7,41 @@
 
         <div id="ad">
           <div id="ad-header">
-            <h2>Nuevo anuncio</h2>
+            <h2>
+              <%= __('Nuevo anuncio') %>
+            </h2>
           </div>
 
           <form novalidate name="ad-new" method="POST" enctype="multipart/form-data">
             <div class="ad-row">
-              <label class="ad-width" for="ad-name">Nombre:</label>
+              <label class="ad-width" for="ad-name">
+                <%= __('Nombre') %>:</label>
               <input type="text" name="nombre" id="nombre" maxlength="20" required>
             </div>
 
             <div class="ad-row">
-              <label class="ad-width" for="ad-price">Precio:</label>
+              <label class="ad-width" for="ad-price">
+                <%= __('Precio') %>:</label>
               <input type="number" name="precio" id="precio" min="1" max="50000" maxlength="5" required>
             </div>
 
             <div class="ad-row">
               <div class="ad-one-row">
                 <div class="ad-one-row">
-                  <div class="ad-subrow ad-width">Venta:</div>
+                  <div class="ad-subrow ad-width">
+                    <%= __('Venta') %>:</div>
                   <div class="ad-subrow">
                     <input type="radio" class="radio" id="venta-1" name="venta" value="true" required>
-                    <label for="<ad-type-1">Si</label>
+                    <label for="<ad-type-1">
+                      <%= __('Si') %>
+                    </label>
                   </div>
 
                   <div class="ad-subrow">
                     <input type="radio" class="radio" id="venta-2" name="venta" value="false" required>
-                    <label for="<ad-type-2">No</label>
+                    <label for="<ad-type-2">
+                      <%= __('No') %>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -40,30 +49,38 @@
 
             <div class="ad-row">
               <div class="ad-one-row">
-                <div class="ad-subrow ad-width">Tags:</div>
+                <div class="ad-subrow ad-width">
+                  <%= __('Etiquetas') %>:</div>
 
                 <div class="ad-subrow">
-                  <input type="checkbox" id="tag1" name="tags" value="work">Work
+                  <input type="checkbox" id="tag1" name="tags" value="work">
+                  <%= __('Trabajo') %>
                 </div>
                 <div class="ad-subrow">
-                  <input type="checkbox" id="tag2" name="tags" value="lifestyle">Lifestyle
+                  <input type="checkbox" id="tag2" name="tags" value="lifestyle">
+                  <%= __('Estilo de vida') %>
                 </div>
                 <div class="ad-subrow">
-                  <input type="checkbox" id="tag3" name="tags" value="motor">Motor
+                  <input type="checkbox" id="tag3" name="tags" value="motor">
+                  <%= __('Motor') %>
                 </div>
                 <div class="ad-subrow">
-                  <input type="checkbox" id="tag4" name="tags" value="mobile">Mobile
+                  <input type="checkbox" id="tag4" name="tags" value="mobile">
+                  <%= __('Móvil') %>
                 </div>
               </div>
             </div>
 
             <div class="ad-row">
-              <div class="ad-subrow ad-width">Foto:</div>
+              <div class="ad-subrow ad-width">
+                <%= __('Foto') %>:</div>
               <input type="file" name="imagen">
             </div>
 
             <div class="ad-row">
-              <button type="submit" id="send-button">Crear Anuncio</button>
+              <button type="submit" id="send-button">
+                <%= __('Crear anuncio') %>
+              </button>
             </div>
           </form>
 

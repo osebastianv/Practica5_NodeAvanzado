@@ -15,28 +15,16 @@ if (typeof form != "undefined") {
   const imageInput = document.getElementsByName("imagen");
   console.log("imageInput", imageInput);
 
-  /*  const adTypeInput = {
-    adType1: document.getElementById("ad-type-1"),
-    adType2: document.getElementById("ad-type-2")
-  };
-
-  const adTagInput = {
-    adTag1: document.getElementById("ad-tag-1"),
-    adTag2: document.getElementById("ad-tag-2"),
-    adTag3: document.getElementById("ad-tag-2"),
-    adTag4: document.getElementById("ad-tag-2")
-  };*/
-
   // DECLARACIÓN DE EVENTOS
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  // Envío de datos de contacto
+  // Envío de datos
   form.addEventListener("submit", sendAd);
 
   // FUNCIONES
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  // Función de envío de contactos
+  // Función de envío
   async function sendAd(event) {
     var adOK = checkAd(event);
     if (adOK === false) {
@@ -66,7 +54,6 @@ if (typeof form != "undefined") {
     if (nameInput.checkValidity() === false) {
       alert("Escriba un nombre de artículo, por favor");
       nameInput.focus();
-      //event.preventDefault();
       return false;
     }
 
@@ -76,7 +63,6 @@ if (typeof form != "undefined") {
         "Escriba un precio de artículo, por favor. Recuerde que debe estar entre 1 y 50.000 euros"
       );
       priceInput.focus();
-      //event.preventDefault();
       return false;
     }
 
@@ -90,7 +76,6 @@ if (typeof form != "undefined") {
 
     if (radiovalid === false) {
       alert("Seleccione si el artículo es de venta o de compra, por favor");
-      //event.preventDefault();
       return false;
     }
 
@@ -104,7 +89,6 @@ if (typeof form != "undefined") {
 
     if (checkvalid === false) {
       alert("Seleccione al menos un tag por artículo, por favor");
-      //event.preventDefault();
       return false;
     }
 
@@ -112,7 +96,6 @@ if (typeof form != "undefined") {
     console.log(imageInput[0].files);
     if (imageInput[0].files.length === 0) {
       alert("Seleccione una foto para el artículo, por favor");
-      //event.preventDefault();
       return false;
     }
 

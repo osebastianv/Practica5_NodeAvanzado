@@ -20,6 +20,12 @@ router.get("/", async function(req, res, next) {
     //res.locals.title = "Anuncios";
     const docs = await Anuncio.listar(null, 0, 10); //Solo muestra los 10 primeros elementos
 
+    if (docs.length === 0) {
+      res.locals.titleList = res.__("Lista vacía");
+    } else {
+      res.locals.titleList = res.__("Lista de anuncios") + ": " + docs.length;
+    }
+
     //Calculo la ruta de la imagen
     docs.forEach(element => {
       if (element.precargado === true) {
