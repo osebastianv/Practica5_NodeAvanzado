@@ -57,7 +57,6 @@ class LoginController {
 
   // GET /logout
   logout(req, res, next) {
-    //delete req.session.authUser; // borrar authUser de la sesion
     delete req.session.authToken; // borrar authUser de la sesion
     delete req.session.apiUserId;
     req.session.regenerate(function(err) {

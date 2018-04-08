@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require("express");
 var router = express.Router();
 
@@ -15,9 +17,6 @@ router.get("/", async function(req, res, next) {
       res.locals.userEmail = "";
     }
 
-    //res.locals.userEmail = req.user ? req.user.email : "";
-
-    //res.locals.title = "Anuncios";
     const docs = await Anuncio.listar(null, 0, 100); //Solo muestra los 100 primeros elementos
 
     if (docs.length === 0) {
@@ -28,6 +27,13 @@ router.get("/", async function(req, res, next) {
 
     //Calculo la ruta de la imagen
     docs.forEach(element => {
+      //Foto precargada:
+      //False. Las imágenes de los anuncios guardados dinamicamente empiezan por imagen-
+      //True. Las imágenes cargadas en el fichero json usando el scrip installDB no empiezan por imagen-
+      //Se guardan en diferentes carpetas, así las imágenes de anuncios dinámicos se filtran por .gitignore
+      const n = element.foto.indexOf("imagen-");
+      element.precargado = n === 0 ? false : true; //deben empezar por imagen-
+
       if (element.precargado === true) {
         element.ruta = "/images/anuncios/" + element.foto;
       } else {
@@ -41,7 +47,6 @@ router.get("/", async function(req, res, next) {
     });
 
     res.locals.adsList = docs;
-    //console.log("res.locals.adsList", res.locals.adsList.length);
     res.render("index");
   } catch (err) {
     console.log(err);

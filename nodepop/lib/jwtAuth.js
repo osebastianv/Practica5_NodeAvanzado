@@ -10,10 +10,7 @@ module.exports = function() {
   return function(req, res, next) {
     let token = null;
 
-    //console.log("T1");
     const isAPI = req.originalUrl.indexOf("/apiv") === 0 ? true : false;
-    //console.log("T2");
-
     if (isAPI) {
       token =
         req.session.authToken ||
@@ -36,17 +33,18 @@ module.exports = function() {
       }
     }
 
-    //console.log("T", token);
-
     // verificamos el token JWT
     jwt.verify(token, process.env.JWT_SECRET, (err, descodificado) => {
       if (err) {
-        console.log("T-error", error);
-        next(err);
+        //Token expirado
+        if (!isAPI) {
+          res.redirect("/login");
+        } else {
+          err.status = 401;
+          next(err);
+        }
         return;
       }
-
-      //console.log("descodificado", descodificado);
 
       // apuntamos el _id en la petición para que lo usen los
       // siguientes middlewares

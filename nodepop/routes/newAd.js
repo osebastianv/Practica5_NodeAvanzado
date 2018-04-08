@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require("express");
 var router = express.Router();
 
@@ -19,8 +21,6 @@ router.get("/", async function(req, res, next) {
       res.locals.userEmail = "";
     }
 
-    //res.locals.userEmail = req.user ? req.user.email : "";
-
     res.render("newAd");
   } catch (err) {
     console.log(err);
@@ -31,9 +31,10 @@ router.get("/", async function(req, res, next) {
 
 router.post("/", upload.single("imagen"), async function(req, res, next) {
   try {
-    console.log("upload:", req.file);
-    console.log("body:", req.body);
+    console.log("req.body", req.body);
+    console.log("req.file", req.file);
 
+    //Comprobar formato de datos de entrada
     if (checkAd(req.body, req.file) === false) {
       const err = new Error("Falta información en la petición");
       err.status = 400;
@@ -41,15 +42,13 @@ router.post("/", upload.single("imagen"), async function(req, res, next) {
       return;
     }
 
-    //console.log("1", req.body.tags);
-
+    //Si es un solo elemento, se debe convertir en array
     let arrayTags = [];
     if (Array.isArray(req.body.tags) === true) {
       arrayTags = req.body.tags;
     } else {
       arrayTags.push(req.body.tags);
     }
-    //console.log("2", arrayTags);
 
     const anuncio = {
       nombre: req.body.nombre,
@@ -57,21 +56,13 @@ router.post("/", upload.single("imagen"), async function(req, res, next) {
       precio: req.body.precio,
       foto: req.file.filename,
       thumbnail: "",
-      tags: arrayTags,
-      precargado: false
+      tags: arrayTags
     };
-    //console.log("3", anuncio);
 
     const response = await Anuncio.insertar(anuncio);
-    console.log("response", response);
-    console.log("response.id", response[0]._id);
 
-    thumbnailClient(
-      response[0]._id,
-      req.file.mimetype,
-      req.file.destination,
-      req.file.filename
-    );
+    //Solicitar al microservicio la creación del thumbnail de la imagen (disminuir a 100x100 px)
+    thumbnailClient(response[0]._id, req.file.destination, req.file.filename);
 
     res.redirect("/");
   } catch (err) {
@@ -86,32 +77,26 @@ function checkAd(body, file) {
   if (nombre === undefined) {
     return false;
   }
-  //console.log("nombre", nombre);
 
   const precio = body.precio;
   if (precio === undefined) {
     return false;
   }
-  //console.log("precio", precio);
 
   const venta = body.venta;
   if (venta === undefined) {
     return false;
   }
-  //console.log("venta", venta);
 
   const tags = body.tags;
   if (tags === undefined) {
     return false;
   }
-  //console.log("tags", tags);
 
   const foto = file;
-  //console.log("foto", foto);
   if (foto === undefined) {
     return false;
   }
-  //console.log("foto", foto);
 
   return true;
 }

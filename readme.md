@@ -1,207 +1,287 @@
 # Nodepop
 
-*Nodepop* es una aplicaciÛn de backend que simula una p·gina web b·sica con anuncios de compra/venta de artÌculos. Implementa una api para obtener anuncios de una base de datos *mongoDB* (*nodepopDB*) a la que se accede a travÈs del paquete *mongoose*.
+_Nodepop_ es una aplicaci√≥n de backend que simula una p√°gina web b√°sica con anuncios de compra/venta de art√≠culos. Implementa una api para obtener anuncios de una base de datos _mongoDB_ (_nodepopDB_) a la que se accede a trav√©s del paquete _mongoose_.
 
-Utilizar· la siguiente url: http://localhost:3000
+La aplicaci√≥n est√° basada en una versi√≥n anterior ubicada en la carpeta _Practica3_NodeBasico_ a la que se le ha incluido las siguientes funcionalidades:
 
-La base de datos *nodepopDB* contiene una colecciÛn llamada anuncios. Cada anuncio mostrar· los siguientes datos:
+* Autenticaci√≥n del API y del sitio web con JWT (jason web token) y mantenimiento de sesi√≥n abierta del usuario.
+* Internacionalizaci√≥n de la web, incluyendo ingl√©s y espa√±ol.
+* Creaci√≥n de nuevos anuncios en la base de datos _mongoDB_ y subida de la foto del anuncio.
+* Creaci√≥n de un thumbnail de la foto de tama√±o 100 x 100 p√≠xeles a trav√©s de un microservicio.
 
-- Nombre del artÌculo, un anuncio siempre tendr· un solo artÌculo.
-- Si el artÌculo se vende o se busca.
-- Precio. Ser· el precio del artÌculo en caso de ser una oferta de venta. En caso de que sea un anuncio de ëse buscaí ser· el precio que el solicitante estarÌa dispuesto a pagar.
-- Foto del artÌculo. Cada anuncio tendr· solo una foto.
-- Tags del anuncio. Podr· contener uno o varios de estos cuatro: work, lifestyle, motor y mobile.
+La aplicaci√≥n utilizar√° la siguiente url: http://localhost:3000
+
+La base de datos _nodepopDB_ contiene una colecci√≥n llamada anuncios. Cada anuncio mostrar√° los siguientes datos:
+
+* Nombre del art√≠culo, un anuncio siempre tendr√° un solo art√≠culo.
+* Si el art√≠culo se vende o se busca.
+* Precio. Ser√° el precio del art√≠culo en caso de ser una oferta de venta. En caso de que sea un anuncio de ‚Äòse busca‚Äô ser√° el precio que el solicitante estar√≠a dispuesto a pagar.
+* Foto del art√≠culo. Cada anuncio tendr√° solo una foto.
+* Thumbnail de la foto del art√≠culo. La foto de tama√±o 100 x 100 p√≠xeles.
+* Tags del anuncio. Podr√° contener uno o varios de estos cuatro: work, lifestyle, motor y mobile.
+
+En esta actualizaci√≥n de la aplicaci√≥n, tambi√©n se ha incluido una colecci√≥n llamada usuarios con los siguientes campos:
+
+* Name. Nombre del usuario.
+* Email. Correo electr√≥nico del usuario.
+* Password. Contrase√±a del usuario.
+
+Adicionalmente se crea autom√°ticamente la colecci√≥n sessions que controla la sesi√≥n abierta del usuario.
 
 ## 1. Entorno (versiones)
 
-| Paquete | VersiÛn |
-| ------ | ------ |
-| nvm | 1.1.5 |
-| node | 8.9.4 |
-| npm | 5.6.0 |
+| Paquete | Versi√≥n |
+| ------- | ------- |
+| nvm     | 1.1.5   |
+| node    | 8.9.4   |
+| npm     | 5.6.0   |
 
-| Base de datos | VersiÛn |
-| ------ | ------ |
-| mongo | 3.6.2 |
+| Base de datos | Versi√≥n |
+| ------------- | ------- |
+| mongo         | 3.6.2   |
 
-| Navegador | VersiÛn |
-| ------ | ------ |
-| chrome | 64.0.3282.167 (Build oficial) (64 bits) |
+| Navegador | Versi√≥n                                 |
+| --------- | --------------------------------------- |
+| chrome    | 64.0.3282.167 (Build oficial) (64 bits) |
 
-##	2. CreaciÛn de la base de datos nodepopDB
-Como prerrequisito debe tener instalado *node.js* y el motor de *mongoDB*. 
+## 2. Creaci√≥n de la base de datos nodepopDB
+
+Como prerrequisito debe tener instalado _node.js_ y el motor de _mongoDB_.
+
 ```sh
 Ejemplo en Windows: lo instala en:
 C:\Program Files\MongoDB
 ```
-Crear una carpeta en el disco duro para guardar la base de datos. Se recomienda no crearla dentro de la carpeta de instalaciÛn de mongoDB por temas de permisos. 
+
+Crear una carpeta en el disco duro para guardar la base de datos. Se recomienda no crearla dentro de la carpeta de instalaci√≥n de mongoDB por temas de permisos.
+
 ```sh
-Ejemplo en Windows: 
+Ejemplo en Windows:
 c:\data\db
 ```
-Arrancar el motor de *mongoDB* con la instrucciÛn: 
+
+Arrancar el motor de _mongoDB_ con la instrucci√≥n:
+
 ```sh
 mongod --dbpath folderDB --directoryperdb
 ```
-siendo folderDB la ruta de la capeta creada en el paso anterior. 
-Al no referenciar el puerto, se utiliza el 27017 (puerto por defecto de *MongoDB*).
+
+siendo folderDB la ruta de la capeta creada en el paso anterior.
+Al no referenciar el puerto, se utiliza el 27017 (puerto por defecto de _MongoDB_).
+
 ```sh
 Ejemplo en Windows:
-"C:\Program Files\MongoDB\Server\3.6\bin\mongod" --dbpath d:\data\db ñdirectoryperdb 
+"C:\Program Files\MongoDB\Server\3.6\bin\mongod" --dbpath d:\data\db ‚Äìdirectoryperdb
 ```
-Nota: Las comillas se utilizan en windows cuando existen carpetas de m·s de 8 caracteres.
 
-Abrir el terminal de consola y posicionarse dentro de la carpeta *nodepop*. 
+Nota: Las comillas se utilizan en windows cuando existen carpetas de m√°s de 8 caracteres.
 
-La aplicaciÛn contiene un script de creaciÛn / inicializaciÛn de la base de datos llamado *install_db.js*. Se ha creado una variable de entorno para poder ejecutarlo m·s f·cilmente. Para crear la base de datos teclear:
+Abrir el terminal de consola y posicionarse dentro de la carpeta _nodepop_.
+
+La aplicaci√≥n contiene un script de creaci√≥n / inicializaci√≥n de la base de datos llamado _installDB.js_. Se ha creado una variable de entorno para poder ejecutarlo m√°s f√°cilmente. Para crear la base de datos teclear:
+
 ```sh
 npm run installDB
 ```
 
-Una vez finalizada la ejecuciÛn del script, comprobar si la base de datos ha sido creada. Para ello podemos abrir un cliente de *MongoDB* (con el motor de *MongoDB* arrancado previamente):
+Una vez finalizada la ejecuci√≥n del script, comprobar si la base de datos ha sido creada. Para ello podemos abrir un cliente de _MongoDB_ (con el motor de _MongoDB_ arrancado previamente):
 
 #### Cliente por consola
 
-Teclear la instrucciÛn:
+Teclear la instrucci√≥n:
+
 ```sh
 mongo
 ```
+
 ```sh
 Ejemplo en Windows:
 "C:\Program Files\MongoDB\Server\3.6\bin\mongo"
 ```
+
 Una vez abierto el cliente, visualizaremos las bases de datos creadas, teclear:
+
 ```sh
 show dbs
 ```
-Para comprobar si existe la base de datos *nodepopDB* y contiene datos, teclear:
+
+Para comprobar si existe la base de datos _nodepopDB_ y contiene datos, teclear:
+
 ```sh
 use nodepopDB
 ```
-Y a continuaciÛn realizar una b˙squeda de anuncios:
+
+Y a continuaci√≥n realizar una b√∫squeda de anuncios:
+
 ```sh
 db.anuncios.find();
 ```
-Se mostrar· una lista de los anuncios guardados en la base de datos.
 
-#### Cliente con interfaz gr·fico, como por ejemplo Robo 3T
+Se mostrar√° una lista de los anuncios guardados en la base de datos.
 
-Crear una conexiÛn con direcciÛn *localhost* y puerto *27017*. 
+#### Cliente con interfaz gr√°fico, como por ejemplo Robo 3T
 
-Seleccionarla y pulsar el botÛn conectar.
+Crear una conexi√≥n con direcci√≥n _localhost_ y puerto _27017_.
 
-Debe aparecer la base de datos *nodepopDB*.
+Seleccionarla y pulsar el bot√≥n conectar.
 
-Dentro de la carpeta colecciones, seleccionar la colecciÛn *anuncios* y con el botÛn derecho del ratÛn seleccionar *view documents*.
+Debe aparecer la base de datos _nodepopDB_.
 
-Se mostrar·n los anuncios guardados en la base de datos.
+Dentro de la carpeta colecciones, seleccionar la colecci√≥n _anuncios_ y con el bot√≥n derecho del rat√≥n seleccionar _view documents_.
+
+Se mostrar√°n los anuncios guardados en la base de datos.
 
 ## 3. Probar el api
 
-Con el motor de la base de datos arrancado y posicionado en la carpeta *nodepop*, teclear:
+Con el motor de la base de datos arrancado y posicionado en la carpeta _nodepop_, teclear:
+
 ```sh
 npm run start
 ```
-Arrancar· la aplicaciÛn con *node*. Si queremos arrancar la aplicaciÛn con *modemon* para pruebas y desarrollo, teclear:
+
+Arrancar√° la aplicaci√≥n con _node_. Si queremos arrancar la aplicaci√≥n con _modemon_ para pruebas y desarrollo, teclear:
+
 ```sh
 npm run dev
 ```
 
 Abrir un navegador Chrome y en la barra de direcciones escribir: http://localhost:3000
 
-Deber· aparecer una lista de anuncios, con fotos incluidas.
+Deber√° aparecer una pantalla de acceso al sistema. Teclear el email _user@example.com_ y la contrase√±a _1234_ y pulsar el bot√≥n submit.
 
-La api utiliza el mÈtodo en *query string* para capturar par·metros y poder filtrar consultas.
+Una vez dentro con el usuario validado aparecer√°:
+
+* Una cabecera para poder:
+  * Seleccionar un idioma (ingl√©s o espa√±ol).
+  * Volver a la p√°gina principal.
+* Una barra de acciones que mostrar√°:
+  * El _usuario_ que ha abierto la sesi√≥n.
+  * La opci√≥n _Cerrar sesi√≥n_, que cierra la sesi√≥n del usuario.
+  * La opci√≥n _Lista de anuncios_, que refresca la lista de anuncios.
+  * La opci√≥n _Nuevo anuncio_ que abre un formulario de creaci√≥n de un nuevo anuncio. Una vez creado, la aplicaci√≥n vuelve de nuevo a la pantalla principal de listado de anuncios.
+* Una lista de anuncios, con fotos incluidas. La foto mostrada ser√° la del thumbnail, salvo que en ese momento no est√© todav√≠a creada, que utilizar√≠a la foto original de subida.
+
+Para crear los thumbnail de las fotos de los nuevos anuncios creados, debemos abrir en otra consola un microservicio llamado _thumbnailService_. Para ello debemos teclear:
+
+```sh
+npm run thumbnailService
+```
+
+El microservicio recoge peticiones de im√°genes de nuevos anuncios, y crea una im√°gen m√°s peque√±a de 100 x 100 p√≠xeles en escala de grises. Posteriormente la ruta a esa imagen thumbnail se guardar√° en la base de datos para que cuando se visualice el anuncio en la lista de anuncios, muestre esta foto m√°s peque√±a en vez de la foto original.
 
 #### Consultas al api con GET
 
-Para recibir la lista de anuncios en formato *JSON*, teclear:
+La api utiliza el m√©todo en _query string_ para capturar par√°metros y poder filtrar consultas.
+
+Para recibir la lista de anuncios en formato _JSON_, teclear:
 http://localhost:3000/apiv1/anuncios
 
+Para poder obtener la informaci√≥n, previamente hay que abrir sesi√≥n con el usuario en la aplicaci√≥n web. Si no est√° logado, saldra el siguiente _JSON_:
+
+```sh
+{
+"success": false,
+"error": "no token provided"
+}
+```
+
+Si una vez abierta la sesi√≥n, el token _JWT_ expira mostrar√°:
+
+```sh
+{
+"success": false,
+"error": "jwt expired"
+}
+```
+
+En este √∫ltimo caso, si estamos navegando por la web, el sistema te redirige a la pantalla de acceso para que vuelvas a abrir una nueva sesi√≥n con el usuario.
 
 Filtros de propiedades:
 
-- Por nombre de artÌculo, que empiece por el dato buscado: 
-http://localhost:3000/apiv1/anuncios?nombre=bicicleta
+* Por nombre de art√≠culo, que empiece por el dato buscado:
+  http://localhost:3000/apiv1/anuncios?nombre=bicicleta
 
-- Tipo de anuncio (venta o b˙squeda):
-http://localhost:3000/apiv1/anuncios?venta=true
+* Tipo de anuncio (venta o b√∫squeda):
+  http://localhost:3000/apiv1/anuncios?venta=true
 
-- rango de precio (precio min. y precio max.), se usa un par·metro que tenga una de estas combinaciones:
-   - n-m buscar· anuncios con precio incluido entre los valores n y m.
-   http://localhost:3000/apiv1/anuncios?precio=50-250
+* rango de precio (precio min. y precio max.), se usa un par√°metro que tenga una de estas combinaciones:
 
-   - n- buscar· los que tengan precio mayor que n.
-   http://localhost:3000/apiv1/anuncios?precio=50-
+  * n-m buscar√° anuncios con precio incluido entre los valores n y m.
+    http://localhost:3000/apiv1/anuncios?precio=50-250
 
-   - -n buscar· los que tengan precio menor de n.
-   http://localhost:3000/apiv1/anuncios?precio=-50
+  * n- buscar√° los que tengan precio mayor que n.
+    http://localhost:3000/apiv1/anuncios?precio=50-
 
-   - n buscar· los que tengan precio igual a n
+  * -n buscar√° los que tengan precio menor de n.
+    http://localhost:3000/apiv1/anuncios?precio=-50
+
+  * n buscar√° los que tengan precio igual a n
     http://localhost:3000/apiv1/anuncios?precio=50
 
-- Por tag, una condiciÛn por tag:
-http://localhost:3000/apiv1/anuncios?tag=lifestyle
+* Por tag, una condici√≥n por tag:
+  http://localhost:3000/apiv1/anuncios?tag=lifestyle
 
-Filtros de paginaciÛn:
+Filtros de paginaci√≥n:
 
-- Saltar los n primeros resultados:
-http://localhost:3000/apiv1/anuncios?start=1
+* Saltar los n primeros resultados:
+  http://localhost:3000/apiv1/anuncios?start=1
 
-- Obtener los n primeros resultados:
-http://localhost:3000/apiv1/anuncios?limit=2
+* Obtener los n primeros resultados:
+  http://localhost:3000/apiv1/anuncios?limit=2
 
-- Ordenar por una propiedad (ascendente):
-http://localhost:3000/apiv1/anuncios?sort=precio
+* Ordenar por una propiedad (ascendente):
+  http://localhost:3000/apiv1/anuncios?sort=precio
 
-- Ordenar por una propiedad (descendente):
-http://localhost:3000/apiv1/anuncios?sort=-precio
+* Ordenar por una propiedad (descendente):
+  http://localhost:3000/apiv1/anuncios?sort=-precio
 
-- Seleccionar propiedades a visualizar, separado por espacios: 
-http://localhost:3000/apiv1/anuncios?fields=nombre%20precio%20-_id
-Seleccionamos solo las propiedades nombre y precio y filtramos la propiedad _id.
-Un espacio se convierte en %20 en una url una vez pulsado intro.
+* Seleccionar propiedades a visualizar, separado por espacios:
+  http://localhost:3000/apiv1/anuncios?fields=nombre%20precio%20-_id
+  Seleccionamos solo las propiedades nombre y precio y filtramos la propiedad \_id.
+  Un espacio se convierte en %20 en una url una vez pulsado intro.
 
-Tanto los filtros de propiedades como filtros de paginaciÛn se pueden combinar:
+Tanto los filtros de propiedades como filtros de paginaci√≥n se pueden combinar:
 http://localhost:3000/apiv1/anuncios?tag=lifestyle&sort=precio&start=1&fields=nombre%20precio%20-_id
 
 #### Insertar, modificar o eliminar con el api con POST, PUT y DELETE:
 
-Ser· necesaria una aplicaciÛn externa que permita realizar peticiones HTTP, como por ejemplo *Postman*:
+Ser√° necesaria una aplicaci√≥n externa que permita realizar peticiones HTTP, como por ejemplo _Postman_:
 
-- Insertar un elemento (POST):
-    - Seleccionar operaciÛn POST.
-    - Insertar en la url: 
+* Insertar un elemento (POST):
+
+  * Seleccionar operaci√≥n POST.
+  * Insertar en la url:
     http://localhost:3000/apiv1/anuncios
-    - En la pestaÒa body, seleccionar el formato *x-www-form-urlencoded* e insertar una clave por cada una de las propiedades del anuncio (nombre, venta, precio, foto, tags), junto a su correspondiente valor.
-    - Deber· devolver un *status 200* y un *JSON* con dos propiedades: 
-        - "success": true
-        - "result": el elemento nuevo insertado, incluyendo la propiedad _id (identificador ˙nico).
+  * En la pesta√±a body, seleccionar el formato _x-www-form-urlencoded_ e insertar una clave por cada una de las propiedades del anuncio (nombre, venta, precio, foto, tags), junto a su correspondiente valor.
+  * Deber√° devolver un _status 200_ y un _JSON_ con dos propiedades:
+    * "success": true
+    * "result": el elemento nuevo insertado, incluyendo la propiedad \_id (identificador √∫nico).
 
-- Actualizar un elemento (PUT):
-    - Seleccionar operaciÛn PUT.
-    - Insertar en la url: 
-    http://localhost:3000/apiv1/anuncios/5a871b34791ea63dc44da85a
-    *5a871b34791ea63dc44da85a* corresponde al identificador (_Id) del elemento a modificar, escribir uno que exista.
-    - En la pestaÒa body, seleccionar el formato x-www-form-urlencoded e insertar una clave por cada una de las propiedades del anuncio que queramos modificar, junto a su correspondiente valor.
-    - Deber· devolver un *status 200* y un *JSON* con dos propiedades: 
-        - "success": true
-        - "result": el elemento modificado.
+* Actualizar un elemento (PUT):
 
-- Eliminar un elemento (DELETE):
-    - Seleccionar operaciÛn DELETE.
-    - Insertar en la url:
+  * Seleccionar operaci√≥n PUT.
+  * Insertar en la url:
     http://localhost:3000/apiv1/anuncios/5a871b34791ea63dc44da85a
-    *5a871b34791ea63dc44da85a* corresponde al identificador (_Id) del elemento a modificar, escribir uno que exista.
-    - Deber· devolver un *status 200* y un *JSON* con una propiedad: 
-        - "success": true.
-		
+    _5a871b34791ea63dc44da85a_ corresponde al identificador (\_Id) del elemento a modificar, escribir uno que exista.
+  * En la pesta√±a body, seleccionar el formato x-www-form-urlencoded e insertar una clave por cada una de las propiedades del anuncio que queramos modificar, junto a su correspondiente valor.
+  * Deber√° devolver un _status 200_ y un _JSON_ con dos propiedades:
+    * "success": true
+    * "result": el elemento modificado.
+
+* Eliminar un elemento (DELETE):
+  * Seleccionar operaci√≥n DELETE.
+  * Insertar en la url:
+    http://localhost:3000/apiv1/anuncios/5a871b34791ea63dc44da85a
+    _5a871b34791ea63dc44da85a_ corresponde al identificador (\_Id) del elemento a modificar, escribir uno que exista.
+  * Deber√° devolver un _status 200_ y un _JSON_ con una propiedad:
+    * "success": true.
+
 ## 4. Visualizar lista de anuncios
 
 Para visualizar la lista de anuncios, teclear: http://localhost:3000
 
 ## 5. Mostrar ayuda con Apidoc
 
-Al mismo nivel que la carpeta *nodepop*, existe la carpeta *doc*. Dentro de ella, abrir el archivo *index.html* para mostrar la ayuda de las funciones del api.
+Al mismo nivel que la carpeta _nodepop_, existe la carpeta _doc_. Dentro de ella, abrir el archivo _index.html_ para mostrar la ayuda de las funciones del api.
 
-La ayuda ha sido creada utilizando el paquete *apidoc*.
+La ayuda ha sido creada utilizando el paquete _apidoc_.

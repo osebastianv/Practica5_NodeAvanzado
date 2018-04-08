@@ -14,12 +14,10 @@ const jwtAuth = require("./lib/jwtAuth");
 const conn = require("./lib/connectMongoose");
 // cargamos los modelos para que mongoose los conozca
 const Anuncio = require("./models/Anuncio");
-//const Usuario = require("./models/Usuario");
 
 var index = require("./routes/index");
 var newAd = require("./routes/newAd");
 var lang = require("./routes/lang");
-//var users = require("./routes/users");
 
 var app = express();
 
@@ -130,7 +128,6 @@ app.use(function(err, req, res, next) {
 });
 
 function isAPI(req) {
-  //Console.log(req);
   return req.originalUrl.indexOf("/apiv") === 0;
 }
 

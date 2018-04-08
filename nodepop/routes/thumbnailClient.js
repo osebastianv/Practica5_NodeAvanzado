@@ -8,30 +8,24 @@ const requester = new cote.Requester({ name: "thumbnail client" });
 
 const Anuncio = require("../models/Anuncio");
 
-module.exports = function(id, mimetype, path, image) {
-  console.log("aqui", path);
+module.exports = function(id, path, image) {
   requester.send(
     {
       type: "createThumbnail", // quienquiera que escuche peticiones 'convert'
       id: id,
-      mimetype: mimetype,
       path: path,
       image: image
     },
     async res => {
-      console.log(
-        `client recibe: ${res} - ${res.id} - ${res.image}`,
-        Date.now()
-      );
+      console.log(`client recibe: ${res.id} - ${res.image}`, Date.now());
 
       const anuncio = {
         id: res.id,
         thumbnail: res.image
       };
-      //console.log("3", anuncio);
 
       const response = await Anuncio.actualizar(anuncio);
-      console.log("responseUpdate", response);
+      //onsole.log("responseUpdate", response);
     }
   );
 };

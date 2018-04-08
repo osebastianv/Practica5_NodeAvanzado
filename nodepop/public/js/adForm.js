@@ -1,11 +1,9 @@
 // DECLARACIONES DE VARIABLES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 const form = document.getElementsByName("ad-new")[0];
-console.log(form);
 
 //Solo se usa en newAd.html
 if (typeof form != "undefined") {
-  console.log("SI");
   const nameInput = document.getElementById("nombre");
   const priceInput = document.getElementById("precio");
 
@@ -13,7 +11,8 @@ if (typeof form != "undefined") {
   const tagChecks = document.getElementsByName("tags");
 
   const imageInput = document.getElementsByName("imagen");
-  console.log("imageInput", imageInput);
+
+  //const sendButton = document.getElementById("send-button");
 
   // DECLARACIÓN DE EVENTOS
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -26,27 +25,14 @@ if (typeof form != "undefined") {
 
   // Función de envío
   async function sendAd(event) {
+    //Comprobar formato de campos de entrada
     var adOK = checkAd(event);
     if (adOK === false) {
       event.preventDefault();
       return false;
     }
 
-    sendButton.setAttribute("disabled", "");
-    event.preventDefault();
-
-    let formData = new FormData(form);
-    formData.append("imagen", imageInput);
-
-    const response = await fetch("/newAd", {
-      method: "post",
-      body: formData
-    });
-    console.log(response);
-
-    setTimeout(function() {
-      sendButton.removeAttribute("disabled");
-    }, 1000);
+    //submit automáticamente envía la petición
   }
 
   function checkAd(event) {
@@ -93,7 +79,6 @@ if (typeof form != "undefined") {
     }
 
     // Validamos imagen
-    console.log(imageInput[0].files);
     if (imageInput[0].files.length === 0) {
       alert("Seleccione una foto para el artículo, por favor");
       return false;

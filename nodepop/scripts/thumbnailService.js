@@ -8,34 +8,30 @@ const path = require("path");
 
 const responder = new cote.Responder({ name: "thumbnail responder" });
 
-// req: { path: '/images/uploads/bici.jpg', foto: 'bici.jpg' }
+// req: { id: 'id del registro en mongo', path: ruta de la imagen', image: 'nombre de la imagen' }
 responder.on("createThumbnail", (req, done) => {
   try {
     console.log(
       "servicio: petición de",
       req.id,
-      req.mimetype,
       req.path,
       req.image,
       Date.now()
     );
 
-    const type = req.mimetype.split("/");
-
-    //const name = path.parse(req.image).name; // hello
-    const ext = path.parse(req.image).ext; // .html
+    const name = path.parse(req.image).name;
+    const ext = path.parse(req.image).ext;
 
     const result = {
       id: req.id,
-      image: req.image + "-small3." + ext //type[1]
+      image: name + "-small" + ext
     };
 
-    // open a file called "lenna.png"
+    // open a file called "name"
     jimp.read(req.path + "/" + req.image, function(err, imageSmall) {
       if (err) throw err;
       imageSmall
         .resize(100, 100) // resize
-        //.quality(60) // set JPEG quality
         .greyscale() // set greyscale
         .write(req.path + "/" + result.image); // save
     });
