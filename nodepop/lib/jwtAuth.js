@@ -36,7 +36,7 @@ module.exports = function() {
       }
     }
 
-    console.log("T", token);
+    //console.log("T", token);
 
     // verificamos el token JWT
     jwt.verify(token, process.env.JWT_SECRET, (err, descodificado) => {
@@ -46,7 +46,7 @@ module.exports = function() {
         return;
       }
 
-      console.log("descodificado", descodificado);
+      //console.log("descodificado", descodificado);
 
       // apuntamos el _id en la petición para que lo usen los
       // siguientes middlewares

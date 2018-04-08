@@ -40,6 +40,14 @@ anuncioSchema.statics.insertar = function(anuncio, callback) {
   return Anuncio.insertMany(anuncio);
 };
 
+// creamos un método estático (del modelo)
+anuncioSchema.statics.actualizar = function(anuncio, callback) {
+  return Anuncio.updateOne(
+    { _id: anuncio.id },
+    { $set: { thumbnail: anuncio.thumbnail } }
+  );
+};
+
 // creamos el modelo
 const Anuncio = mongoose.model("Anuncio", anuncioSchema);
 

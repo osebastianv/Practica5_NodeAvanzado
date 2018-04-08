@@ -6,6 +6,7 @@ const Usuario = require("../models/Usuario");
 
 // cargamos objeto de upload
 const upload = require("../lib/uploadConfig");
+const thumbnailClient = require("./thumbnailClient");
 
 /* GET home page. */
 router.get("/", async function(req, res, next) {
@@ -30,8 +31,8 @@ router.get("/", async function(req, res, next) {
 
 router.post("/", upload.single("imagen"), async function(req, res, next) {
   try {
-    //console.log("upload:", req.file);
-    //console.log("body:", req.body);
+    console.log("upload:", req.file);
+    console.log("body:", req.body);
 
     if (checkAd(req.body, req.file) === false) {
       const err = new Error("Falta información en la petición");
@@ -61,7 +62,17 @@ router.post("/", upload.single("imagen"), async function(req, res, next) {
     };
     //console.log("3", anuncio);
 
-    await Anuncio.insertar(anuncio);
+    const response = await Anuncio.insertar(anuncio);
+    console.log("response", response);
+    console.log("response.id", response[0]._id);
+
+    thumbnailClient(
+      response[0]._id,
+      req.file.mimetype,
+      req.file.destination,
+      req.file.filename
+    );
+
     res.redirect("/");
   } catch (err) {
     console.log(err);

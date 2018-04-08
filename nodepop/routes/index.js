@@ -18,7 +18,7 @@ router.get("/", async function(req, res, next) {
     //res.locals.userEmail = req.user ? req.user.email : "";
 
     //res.locals.title = "Anuncios";
-    const docs = await Anuncio.listar(null, 0, 10); //Solo muestra los 10 primeros elementos
+    const docs = await Anuncio.listar(null, 0, 100); //Solo muestra los 100 primeros elementos
 
     if (docs.length === 0) {
       res.locals.titleList = res.__("Lista vacía");
@@ -41,7 +41,7 @@ router.get("/", async function(req, res, next) {
     });
 
     res.locals.adsList = docs;
-    console.log("res.locals.adsList", res.locals.adsList.length);
+    //console.log("res.locals.adsList", res.locals.adsList.length);
     res.render("index");
   } catch (err) {
     console.log(err);
